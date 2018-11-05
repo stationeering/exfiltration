@@ -16,7 +16,7 @@ namespace AgentInjector
 
             // Ensure we have everything we need.
             if (args.Length < 5) {
-                Console.WriteLine("Provide: <Agent Assembly> <Source Assembly> <Destination Assembly> <InjectionType> <InjectionMethod>");
+                Console.WriteLine("Provide: <Agent Assembly> <Source Assembly> <Destination Assembly> <Injection Type> <Injection Method>");
                 Environment.Exit(-1);
             }
 
@@ -91,7 +91,7 @@ namespace AgentInjector
             Console.WriteLine("Writing out modified assembly with agent injection.");
             sourceAssembly.Write(destinationAssemblyFile);
 
-            Console.WriteLine("Injection compelted.");
+            Console.WriteLine("Injection completed.");
         }
     }
 }
