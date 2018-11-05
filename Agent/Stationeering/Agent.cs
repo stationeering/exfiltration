@@ -3,19 +3,20 @@ using Assets.Scripts;
 
 namespace Stationeering
 {
-    public class Agent : Object
+    public class Agent : UnityEngine.Object
     {
         public static void Exfiltrate()
         {
             if (GameManager.GameState == Assets.Scripts.GridSystem.GameState.Joining)
             {
-                Debug.Log("STATIONEERINGEXFILTRATION:LOG:Exfiltration Agent Joining!");
+                Debug.Log("STATIONEERINGEXFILTRATION:LOG:Exfiltration Agent Starting as Server is now Joining!");
+            
+                ExfiltrateLogicTypes();               
             }
+        }
 
-            if (GameManager.GameState == Assets.Scripts.GridSystem.GameState.Running)
-            {
-                Debug.Log("STATIONEERINGEXFILTRATION:LOG:Exfiltration Agent Running!");
-            }
+        private static void ExfiltrateLogicTypes()
+        {
         }
     }
 }
