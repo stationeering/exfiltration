@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Assets.Scripts;
+using Assets.Scripts.Objects.Motherboards;
 
 namespace Stationeering
 {
@@ -17,6 +18,9 @@ namespace Stationeering
 
         private static void ExfiltrateLogicTypes()
         {
+            foreach (LogicType logicType in Localization.LogicTypes)
+            {
+            }
         }
     }
 }
