@@ -6,9 +6,11 @@ call to `Stationeering.Agent#exfiltrate`.
 
 ## Usage
 
-```# mono AgentInjector.exe
+```
+# mono AgentInjector.exe
 Stationeering Exfiltration Agent Injector
-Provide: <Agent Assembly> <Source Assembly> <Destination Assembly> <Injection Type> <Injection Method>```
+Provide: <Agent Assembly> <Source Assembly> <Destination Assembly> <Injection Type> <Injection Method>
+```
 
 * Agent Assembly - Compiled C# exfiltration agent with `Stationeering.Agent#exfiltrate` as a static method.
 * Source Assembly - Stationeers Assembly-CSharp.dll with injection.
