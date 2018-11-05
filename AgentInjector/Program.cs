@@ -13,9 +13,11 @@ namespace AgentInjector
         public static void Main(string[] args)
         {
             Console.WriteLine("Stationeering Exfiltration Agent Injector");
+            Console.WriteLine();
 
             // Ensure we have everything we need.
-            if (args.Length < 5) {
+            if (args.Length < 5)
+            {
                 Console.WriteLine("Provide: <Agent Assembly> <Source Assembly> <Destination Assembly> <Injection Type> <Injection Method>");
                 Environment.Exit(-1);
             }
@@ -31,6 +33,7 @@ namespace AgentInjector
             Console.WriteLine("Destination Assembly: " + destinationAssemblyFile);
             Console.WriteLine("Injection Point: " + injectionType + "#" + injectionMethod);
             Console.WriteLine("Exfiltration Agent: " + AGENT_TYPE + "#" + AGENT_METHOD);
+            Console.WriteLine();
 
             // Load the agent assembly with the exfiltration agent.
             Console.WriteLine("Loading agent assembly...");
@@ -55,35 +58,36 @@ namespace AgentInjector
             // Begin injection.
             Console.WriteLine("Beginning injection...");
 
-            if (injectionPointMethodExists) {           
+            if (injectionPointMethodExists)
+            {           
                 // Injection point exists, remove the last statement which should be a ret.
                 Console.WriteLine("Injection method exists, removing return statement to make way for agent injection....");
 
                 injectionPointMethod = injectionPointType.Methods.Where(x => x.Name == injectionMethod).First();
                 injectionPointMethod.Body.Instructions.Remove(injectionPointMethod.Body.Instructions.Last());
-            } else {                
+            }
+            else
+            {                
                 // Injection does not exist, we need to add one.
                 Console.WriteLine("Injection method DOES NOT exists, creating new method with call to base...");
-                Console.WriteLine("Creating injection point, override will call " + injectionPointType.BaseType.FullName + "#" + injectionMethod);
 
-                TypeDefinition item = sourceAssembly.Types.First(x => x.FullName == injectionPointType.BaseType.FullName);
-                MethodDefinition itemAwakeMethod = item.Methods.First(x => x.Name == injectionMethod);
+                TypeDefinition superType = SeekMethod(sourceAssembly, injectionPointType, injectionMethod);
+                MethodDefinition superMethod = superType.Methods.First(x => x.Name == injectionMethod);
 
-                injectionPointMethod = new MethodDefinition(injectionMethod, itemAwakeMethod.Attributes, sourceAssembly.ImportReference(typeof(void)));
+                injectionPointMethod = new MethodDefinition(injectionMethod, superMethod.Attributes, sourceAssembly.ImportReference(typeof(void)));
                 injectionPointType.Methods.Add(injectionPointMethod);
-
+                
                 injectionPointMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Nop));
                 injectionPointMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ldarg_0));
-                injectionPointMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Call, injectionPointMethod.Module.ImportReference(itemAwakeMethod)));
+                injectionPointMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Call, injectionPointMethod.Module.ImportReference(superMethod)));
             }
 
             // Write call to exfiltration agent.
             Console.WriteLine("Injecting call to exfiltration agent...");
             injectionPointMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Nop));
-            injectionPointMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ldarg_0));
             injectionPointMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Call, injectionPointMethod.Module.ImportReference(exfiltrationAgentMethod)));
 
-            // Ensure awake returns.
+            // Ensure injected method returns.
             Console.WriteLine("Injecting return call again...");
             injectionPointMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ret));
 
@@ -92,6 +96,28 @@ namespace AgentInjector
             sourceAssembly.Write(destinationAssemblyFile);
 
             Console.WriteLine("Injection completed.");
+        }
+
+        private static TypeDefinition SeekMethod(ModuleDefinition assembly, TypeDefinition type, String method)
+        {
+            Console.WriteLine("Checking for " + type.FullName + "#" + method + "...");
+
+            if (type.Methods.Where(x => x.Name == method).Any())
+            {
+                Console.WriteLine("Found!");
+                return type;
+            }
+            else if (type.BaseType == null)
+            {
+                Console.WriteLine("Not found, no parent!");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Not found, going up...");
+                TypeDefinition baseType = assembly.Types.First(x => x.FullName == type.BaseType.FullName);
+                return SeekMethod(assembly, baseType, method);
+            }
         }
     }
 }
