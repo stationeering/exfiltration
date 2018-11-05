@@ -8,7 +8,7 @@ namespace AgentInjector
     class MainClass
     {
         const String AGENT_TYPE = "Stationeering.Agent";
-        const String AGENT_METHOD = "exfiltrate";
+        const String AGENT_METHOD = "Exfiltrate";
 
         public static void Main(string[] args)
         {

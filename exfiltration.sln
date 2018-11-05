@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentInjector", "AgentInjector\AgentInjector.csproj", "{AFD3579A-DCD4-4447-80B8-B33A2CB5D249}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agent", "Agent\Agent.csproj", "{4FBDF180-D720-4BB7-97D3-70F98D359635}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,5 +15,9 @@ Global
 		{AFD3579A-DCD4-4447-80B8-B33A2CB5D249}.Debug|x86.Build.0 = Debug|x86
 		{AFD3579A-DCD4-4447-80B8-B33A2CB5D249}.Release|x86.ActiveCfg = Release|x86
 		{AFD3579A-DCD4-4447-80B8-B33A2CB5D249}.Release|x86.Build.0 = Release|x86
+		{4FBDF180-D720-4BB7-97D3-70F98D359635}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4FBDF180-D720-4BB7-97D3-70F98D359635}.Debug|x86.Build.0 = Debug|Any CPU
+		{4FBDF180-D720-4BB7-97D3-70F98D359635}.Release|x86.ActiveCfg = Release|Any CPU
+		{4FBDF180-D720-4BB7-97D3-70F98D359635}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
