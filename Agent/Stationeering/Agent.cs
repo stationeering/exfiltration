@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts;
 using Assets.Scripts.GridSystem;
 using UnityEngine;
+using Stationeering.Task;
 
 namespace Stationeering
 {
@@ -13,7 +14,13 @@ namespace Stationeering
                 Debug.Log("STATIONEERINGEXFILTRATION:LOG:Exfiltration Agent Starting...");
 
                 Debug.Log("STATIONEERINGEXFILTRATION:LOG:Outputting LogicTypes...");
-                Task.ExfilrateLogicTypes.Exfiltrate();
+                ExfilrateLogicTypes.Exfiltrate();
+                
+                Debug.Log("STATIONEERINGEXFILTRATION:LOG:Outputting LogicSlotTypes...");
+                ExfilrateLogicSlotTypes.Exfiltrate();
+                
+                Debug.Log("STATIONEERINGEXFILTRATION:LOG:Outputting Instructions...");
+                ExfilrateInstructions.Exfiltrate();
             }
         }
     }

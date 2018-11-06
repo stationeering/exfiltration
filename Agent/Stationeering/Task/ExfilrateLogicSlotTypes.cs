@@ -5,27 +5,27 @@ using Assets.Scripts.Objects.Motherboards;
 
 namespace Stationeering.Task
 {
-    public class ExfilrateLogicTypes
+    public class ExfilrateLogicSlotTypes
     {
         public static void Exfiltrate()
         {
-            var outputDocument = XML.PrepareXML("LogicTypes");
+            var outputDocument = XML.PrepareXML("LogicSlotTypes");
             var rootXML = outputDocument.DocumentElement;
 
-            foreach (LogicType logicType in Enum.GetValues(typeof(LogicType)))
+            foreach (LogicSlotType logicSlotType in Enum.GetValues(typeof(LogicSlotType)))
             {
-                AddLogicType(logicType, outputDocument, rootXML);
+                AddLogicSlotType(logicSlotType, outputDocument, rootXML);
             }
 
-            outputDocument.Save("/tmp/logictype.xml");
+            outputDocument.Save("/tmp/logicslottype.xml");
         }
 
-        private static void AddLogicType(LogicType logicType, XmlDocument xmlDocument, XmlNode root)
+        private static void AddLogicSlotType(LogicSlotType logicSlotType, XmlDocument xmlDocument, XmlNode root)
         {
-            string logicTypeName = logicType.ToString();
-            int logicTypeId = (int) logicType;
+            string logicTypeName = logicSlotType.ToString();
+            int logicTypeId = (int) logicSlotType;
 
-            var element = xmlDocument.CreateElement("LogicType");
+            var element = xmlDocument.CreateElement("LogicSlotType");
 
             var idAttribute = xmlDocument.CreateAttribute("id");
             idAttribute.Value = logicTypeId.ToString();

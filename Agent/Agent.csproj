@@ -259,7 +259,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stationeering\Agent.cs" />
+    <Compile Include="Stationeering\Task\ExfilrateLogicSlotTypes.cs" />
     <Compile Include="Stationeering\Task\ExfilrateLogicTypes.cs" />
+    <Compile Include="Stationeering\Task\ExfilrateInstructions.cs" />
     <Compile Include="Stationeering\Utils\XML.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
