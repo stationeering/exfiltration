@@ -24,6 +24,9 @@ namespace Stationeering
                 
                 Debug.Log("STATIONEERINGEXFILTRATION:LOG:Outputting Things...");
                 ExfiltrateThings.Exfiltrate();
+                
+                Debug.Log("STATIONEERINGEXFILTRATION:LOG:Shutdown Game...");
+                Application.Quit();
             }
         }
     }
