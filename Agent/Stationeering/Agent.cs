@@ -1,25 +1,19 @@
-﻿using UnityEngine;
-using Assets.Scripts;
-using Assets.Scripts.Objects.Motherboards;
+﻿using Assets.Scripts;
+using Assets.Scripts.GridSystem;
+using UnityEngine;
 
 namespace Stationeering
 {
-    public class Agent : UnityEngine.Object
+    public class Agent
     {
         public static void Exfiltrate()
         {
-            if (GameManager.GameState == Assets.Scripts.GridSystem.GameState.Joining)
+            if (GameManager.GameState == (GameManager.IsServer ? GameState.Joining : GameState.Running))
             {
-                Debug.Log("STATIONEERINGEXFILTRATION:LOG:Exfiltration Agent Starting as Server is now Joining!");
-            
-                ExfiltrateLogicTypes();               
-            }
-        }
+                Debug.Log("STATIONEERINGEXFILTRATION:LOG:Exfiltration Agent Starting...");
 
-        private static void ExfiltrateLogicTypes()
-        {
-            foreach (LogicType logicType in Localization.LogicTypes)
-            {
+                Debug.Log("STATIONEERINGEXFILTRATION:LOG:Outputting LogicTypes...");
+                Task.ExfilrateLogicTypes.Exfiltrate();
             }
         }
     }
