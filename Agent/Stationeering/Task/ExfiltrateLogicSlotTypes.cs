@@ -5,7 +5,7 @@ using Assets.Scripts.Objects.Motherboards;
 
 namespace Stationeering.Task
 {
-    public class ExfilrateLogicSlotTypes
+    public class ExfiltrateLogicSlotTypes
     {
         public static void Exfiltrate()
         {

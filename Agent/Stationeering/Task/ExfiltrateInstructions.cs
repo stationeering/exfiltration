@@ -6,7 +6,7 @@ using Assets.Scripts.Objects.Motherboards;
 
 namespace Stationeering.Task
 {
-    public class ExfilrateInstructions
+    public class ExfiltrateInstructions
     {
         public static void Exfiltrate()
         {
