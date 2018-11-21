@@ -54,8 +54,9 @@ namespace Stationeering.Task
             
             AddConstructedBy(thing, xmlDocument, element);
             
-            /*
-                
+			AddObjectHierachy(thing, xmlDocument, element);
+
+            /*                
                 AddConstructs(thing, ref text3);
 				AddMadeBy(thing, ref text3);
 				AddCreates(thing, ref text3);
@@ -324,6 +325,54 @@ namespace Stationeering.Task
                     }
                 }
             }            
+        }
+
+		private static void AddObjectHierachy(Thing thing, XmlDocument xmlDocument, XmlNode parent)
+        {
+            var hierachy = xmlDocument.CreateElement("CSharpHeirachy");
+
+            Type type = thing.GetType();
+
+            AddObjectHierachyChild(type, xmlDocument, hierachy);
+
+            parent.AppendChild(hierachy);
+		}
+
+        private static void AddObjectHierachyChild(Type type, XmlDocument xmlDocument, XmlNode parent)
+        {
+            var typeElement = xmlDocument.CreateElement("Type");
+
+            var nameAttribute = xmlDocument.CreateAttribute("name");
+            nameAttribute.Value = type.FullName;
+            typeElement.Attributes.Append(nameAttribute);
+
+            if (type.GetInterfaces().Length > 0) {
+                var interfacesElement = xmlDocument.CreateElement("Interfaces");
+
+                foreach (Type intType in type.GetInterfaces()) {
+                    if (!intType.FullName.StartsWith("System.IComparable", StringComparison.CurrentCulture))
+                    {
+                        var interfaceElement = xmlDocument.CreateElement("Interface");
+
+                        var interfaceNameAttribute = xmlDocument.CreateAttribute("name");
+                        interfaceNameAttribute.Value = intType.FullName;
+                        interfaceElement.Attributes.Append(interfaceNameAttribute);
+
+                        interfacesElement.AppendChild(interfaceElement);
+                    }
+                }
+
+                if (interfacesElement.ChildNodes.Count > 0)
+                {
+                    typeElement.AppendChild(interfacesElement);
+                }
+            }
+
+            if (type.BaseType != null && typeof(Thing).IsAssignableFrom(type.BaseType)) {
+                AddObjectHierachyChild(type.BaseType, xmlDocument, typeElement);
+            }
+
+            parent.AppendChild(typeElement);
         }
     }
 }
