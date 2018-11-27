@@ -32,6 +32,10 @@ namespace Stationeering.Task
             var prefabAttribute = xmlDocument.CreateAttribute("prefab");
             prefabAttribute.Value = thing.PrefabName;
             element.Attributes.Append(prefabAttribute);
+
+            var prefabHashAttribute = xmlDocument.CreateAttribute("prefabHash");
+            prefabHashAttribute.Value = thing.PrefabHash.ToString();
+            element.Attributes.Append(prefabHashAttribute);
             
             var displayAttribute = xmlDocument.CreateAttribute("display");
             displayAttribute.Value = thing.DisplayName;
