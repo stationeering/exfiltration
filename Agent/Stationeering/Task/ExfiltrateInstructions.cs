@@ -24,11 +24,15 @@ namespace Stationeering.Task
         private static void AddScriptCommand(ScriptCommand scriptCommand, XmlDocument xmlDocument, XmlNode root)
         {
             var element = xmlDocument.CreateElement("Instruction");
+            var example = ProgrammableChip.GetCommandExample(scriptCommand);
 
             var instructionAttribute = xmlDocument.CreateAttribute("instruction");
             instructionAttribute.Value = scriptCommand.ToString();
-
             element.Attributes.Append(instructionAttribute);
+
+            var exampleAttribute = xmlDocument.CreateAttribute("example");
+            exampleAttribute.Value = example;
+            element.Attributes.Append(exampleAttribute);
 
             var description = ProgrammableChip.GetCommandDescription(scriptCommand);
 
